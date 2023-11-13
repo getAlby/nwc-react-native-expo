@@ -1489,7 +1489,15 @@
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@getalby/sdk@2.5.0":
+"@getalby/lightning-tools@^4.1.0":
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/@getalby/lightning-tools/-/lightning-tools-4.1.0.tgz#c684229898ef8504db1c096829f3579d4f8d8a7f"
+  integrity sha512-VqhJGA1ifaRpaTFtqCudFvpooImpd8tCU1sbJ/Ejc191Nyz3tpUQduUrBN4bhtS7h2thVDZ8OWFZ0NG/uUXXzQ==
+  dependencies:
+    crypto-js "^4.1.1"
+    light-bolt11-decoder "^3.0.0"
+
+"@getalby/sdk@^2.5.0":
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/@getalby/sdk/-/sdk-2.5.0.tgz#d1b0a22cbcf986755c4b684096d97f52ed0b469d"
   integrity sha512-MRLgI6WxCCLgrar+qDqm/UhKs+V6yXzNm4y1bJRAuN72nkKT+TjTJHCmk9GjTngR3FrOfLbeMsPwBxCmbvfrLQ==
@@ -2061,6 +2069,11 @@
   dependencies:
     "@urql/core" ">=2.3.1"
     wonka "^4.0.14"
+
+"@webbtc/webln-types@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@webbtc/webln-types/-/webln-types-2.1.0.tgz#b5a9735402676ff274e7dcf149a57f8a39c8354e"
+  integrity sha512-5mHEjtef3rNddMnBuIqzdzVBu9SBKXvpcSXbdjJjxzqVZUA/2Aq2D4wXalj8pE9b9d85ZOAViqShjD/P+ZJwuw==
 
 "@xmldom/xmldom@^0.8.8":
   version "0.8.10"
@@ -4165,6 +4178,13 @@ leven@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
   integrity sha512-qsda+H8jTaUaN/x5vzW2rzc+8Rw4TAQ/4KjB46IwK5VH+IlVeeeje/EoZRpiXvIqjFgK84QffqPztGI3VBLG1A==
+
+light-bolt11-decoder@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/light-bolt11-decoder/-/light-bolt11-decoder-3.0.0.tgz#f644576120426c9ef65621bde254f11016055044"
+  integrity sha512-AKvOigD2pmC8ktnn2TIqdJu0K0qk6ukUmTvHwF3JNkm8uWCqt18Ijn33A/a7gaRZ4PghJ59X+8+MXrzLKdBTmQ==
+  dependencies:
+    "@scure/base" "1.1.1"
 
 lightningcss-darwin-arm64@1.19.0:
   version "1.19.0"
