@@ -11,6 +11,7 @@ import {
   TextInput,
 } from "react-native";
 import PolyfillCrypto from "react-native-webview-crypto";
+import WebView from "react-native-webview";
 
 export default function App() {
   return (
@@ -31,6 +32,8 @@ const styles = StyleSheet.create({
 
 function NWCPlayground() {
   const [nwcUrl, setNwcUrl] = React.useState("");
+  const [pendingNwcUrl, setPendingNwcUrl] = React.useState("");
+  const [nwcAuthUrl, setNwcAuthUrl] = React.useState("");
   const [paymentRequest, setPaymentRequest] = React.useState("");
   const [preimage, setPreimage] = React.useState("");
   const [nostrWebLN, setNostrWebLN] = React.useState<
@@ -83,18 +86,60 @@ function NWCPlayground() {
     }
   }
 
-  return (
-    <>
-      <Text>NWC URL</Text>
-      <TextInput
-        onChangeText={(text) => setNwcUrl(text)}
-        style={{
-          borderColor: "black",
-          borderWidth: 1,
-          padding: 10,
-          margin: 10,
+  async function connectWithAlby() {
+    const nwc = webln.NostrWebLNProvider.withNewSecret({
+      //authorizationUrl: "http://192.168.1.102:8080",
+    });
+    const authUrl = nwc.getAuthorizationUrl({
+      name: "React Native NWC demo",
+    });
+    setPendingNwcUrl(nwc.getNostrWalletConnectUrl(true));
+    setNwcAuthUrl(authUrl.toString());
+  }
+
+  if (nwcAuthUrl) {
+    return (
+      <WebView
+        source={{ uri: nwcAuthUrl }}
+        injectedJavaScriptBeforeContentLoaded={`
+
+        // TODO: remove once NWC also posts messages to the window
+        window.opener = window;
+
+        // Listen for window messages
+        window.addEventListener("message", (event) => {
+          window.ReactNativeWebView.postMessage(event.data?.type);
+        });
+        
+      `}
+        onMessage={(event) => {
+          if (event.nativeEvent.data === "nwc:success") {
+            setNwcAuthUrl("");
+            setNwcUrl(pendingNwcUrl);
+          }
         }}
       />
+    );
+  }
+
+  return (
+    <>
+      {!nwcUrl && (
+        <>
+          <Text>Paste NWC URL</Text>
+          <TextInput
+            onChangeText={(text) => setNwcUrl(text)}
+            style={{
+              borderColor: "black",
+              borderWidth: 1,
+              padding: 10,
+              margin: 10,
+            }}
+          />
+          <Text>or</Text>
+          <Button title="Connect with Alby NWC" onPress={connectWithAlby} />
+        </>
+      )}
       {nwcUrl && (
         <>
           <Text>Balance</Text>
