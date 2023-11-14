@@ -5,7 +5,9 @@ import { webln } from "@getalby/sdk";
 import React from "react";
 import {
   Button,
+  Platform,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -15,20 +17,12 @@ import WebView from "react-native-webview";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={styles.safeArea}>
       <PolyfillCrypto />
       <NWCPlayground />
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: "#FFFFFF",
-    width: "100%",
-    height: "100%",
-  },
-});
 
 function NWCPlayground() {
   const [nwcUrl, setNwcUrl] = React.useState("");
@@ -155,3 +149,11 @@ function NWCPlayground() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: "white",
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+});
